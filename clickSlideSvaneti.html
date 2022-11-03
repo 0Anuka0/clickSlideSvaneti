@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body {
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100vh;
+background-image:radial-gradient(rgb(234, 196, 196),  white,rgb(235, 191, 130), rgba(235, 202, 140, 0.922), orange);
+background-attachment: fixed;
+display: flex;
+justify-content: center;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex:1;
+    color:rgb(193, 135, 28);
+    text-shadow: white 0 0 4px;
+    transition:all 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    overflow: hidden;
+}
+
+.box.center {
+    border: solid 2px rgba(223, 144, 34, 0.38);
+}
+
+p {
+    font-size:22px;
+}
+
+.centerText {
+    transition:all 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-size:55px;
+}
+
+.box.open {
+flex:9;
+transition:all 6s ease-out;
+background-image: url(images/მესტია-2.jpg);
+background-position: 40%, 30%;
+}
+
+.box > :first-child {
+    transition:all 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+}
+
+.box.open > :first-child {
+    transform:translateY(-40vh);
+    transition:all 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.box >:last-child {
+    transition:all 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.box.open >:last-child {
+    transform:translateY(40vh);
+    transition:all 3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.box.open >.centerText {
+    transform:scale(3.6);
+    opacity: 0;
+    transition:all 8s ease-in-out;
+    text-shadow: rgb(240, 233, 233) 0 0 2px, white 0 0 4px, white 0 0 6px, white 0 0 5px;
+    color:rgb(216, 135, 3);
+    position:relative;
+}
+
+a {
+    position:absolute;
+    top:60%;
+    opacity: 0;
+    font-size:30px;
+    text-decoration: none;
+    color:white;
+    text-shadow: orange 2px 2px 3px, black -1px -1px 3px;
+    transition-delay:2s;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="box">
+   <p></p>
+   <p></p>
+   <p></p>
+    </div>
+
+    <div class="box center">
+        <p>your Journey</p>
+        <p class="centerText">Starts</p>
+        <a href="https://georgiantravelguide.com/en/svaneti#:~:text=Svaneti%20is%20located%20in%20the,populated%20region%20in%20the%20Caucasus.">Learn more about Svaneti</a>
+        <p>Here</p>
+    </div>
+
+    <div class="box">
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+
+    <script>
+const box = document.querySelector(".center");
+let i = 0;
+let myInterval;
+let centerText = document.querySelector(".centerText");
+let link = document.querySelector("a");
+
+box.addEventListener("click", open);
+box.addEventListener("transitionend", ()=> {
+    let background = box.getAttribute("class");
+    console.log(background);
+
+    if(background.includes("open")){
+console.log("includes");
+link.style.opacity="1";
+link.style.fontSize="32px";
+link.style.transitionDuration="1.5s";
+link.style.transitionTimingFunction="ease-in-out";
+    }
+});
+
+function open(){
+    this.classList.toggle("open");
+    link.style.opacity="0";
+   
+    centerText.textContent = "Start"; 
+myInterval =setInterval(changeWords, 1000);
+}
+
+function changeWords(){
+    let array = ["Your", "Journey", "Here"];
+    centerText.textContent = array[i];
+        i++;
+        console.log("hey");
+    if (i==3){
+        clearInterval(myInterval);
+        i=0;
+    }
+}
+
+      
+
+    </script>
+    
+</body>
+</html>
